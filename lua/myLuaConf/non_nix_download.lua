@@ -76,12 +76,16 @@ require('nixCatsUtils.catPacker').setup {
   { 'nvim-lualine/lualine.nvim', opt = true },
   { 'lukas-reineke/indent-blankline.nvim', opt = true },
   { 'numToStr/Comment.nvim', opt = true, as = 'comment.nvim' },
-  { 'kylechui/nvim-surround', opt = true },
   {
     'iamcco/markdown-preview.nvim',
     build = ':call mkdp#util#install()',
     opt = true,
   },
+
+  -- mini
+  { 'nvim-mini/mini.starter', version = false },
+  { 'nvim-mini/mini.surround', version = false },
+  { 'nvim-mini/mini.comment', version = false },
 
   -- all the rest of the setup will be done using the normal setup functions later,
   -- thus working regardless of what method loads the plugins.

@@ -67,6 +67,7 @@ require('lze').load {
   { import = 'myLuaConf.plugins.telescope' },
   { import = 'myLuaConf.plugins.treesitter' },
   { import = 'myLuaConf.plugins.completion' },
+  { import = 'myLuaConf.plugins.mini' },
   {
     'markdown-preview.nvim',
     -- NOTE: for_cat is a custom handler that just sets enabled value for us,
@@ -97,28 +98,11 @@ require('lze').load {
     end,
   },
   {
-    'comment.nvim',
-    for_cat = 'general.extra',
-    event = 'DeferredUIEnter',
-    after = function(plugin)
-      require('Comment').setup()
-    end,
-  },
-  {
     'indent-blankline.nvim',
     for_cat = 'general.extra',
     event = 'DeferredUIEnter',
     after = function(plugin)
       require('ibl').setup()
-    end,
-  },
-  {
-    'nvim-surround',
-    for_cat = 'general.always',
-    event = 'DeferredUIEnter',
-    -- keys = "",
-    after = function(plugin)
-      require('nvim-surround').setup()
     end,
   },
   {
@@ -312,6 +296,14 @@ require('lze').load {
         { '<leader>w', group = '[w]orkspace' },
         { '<leader>w_', hidden = true },
       }
+    end,
+  },
+  {
+    'nvim-autopairs',
+    for_cat = 'general.always',
+    event = 'DeferredUIEnter',
+    after = function(plugin)
+      require('nvim-autopairs').setup()
     end,
   },
 }

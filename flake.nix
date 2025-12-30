@@ -152,7 +152,7 @@
                 nvim-web-devicons
               ];
             };
-            # You can retreive information from the
+            # You can retrieve information from the
             # packageDefinitions of the package this was packaged with.
             # :help nixCats.flake.outputs.categoryDefinitions.scheme
             themer =
@@ -229,13 +229,15 @@
                 vim-sleuth
                 vim-fugitive
                 vim-rhubarb
-                nvim-surround
+                nvim-autopairs
+                mini-starter
+                mini-surround
+                mini-comment
               ];
               extra = with pkgs.vimPlugins; [
                 fidget-nvim
                 # lualine-lsp-progress
                 which-key-nvim
-                comment-nvim
                 undotree
                 indent-blankline-nvim
                 vim-startuptime
