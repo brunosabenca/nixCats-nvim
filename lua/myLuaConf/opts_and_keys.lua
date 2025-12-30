@@ -133,3 +133,9 @@ vim.keymap.set('x', '<leader>P', '"_dP', { noremap = true, silent = true, desc =
 
 -- Save current file using C-s in normal mode
 vim.keymap.set('n', '<C-s>', '<cmd>w<cr>', { silent = true, desc = 'Save file' })
+
+-- Buffers
+vim.keymap.set('n', '<S-l>', '<cmd>bnext<cr>', { silent = true, desc = 'Next Buffer' })
+vim.keymap.set('n', '<S-h>', '<cmd>bprev<cr>', { silent = true, desc = 'Previous Buffer' })
+vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { silent = true, desc = 'Switch to Other Buffer' })
+vim.keymap.set('n', '<leader>bd', '<cmd>:bd<cr>', { silent = true, desc = 'Delete Buffer and Window' })
