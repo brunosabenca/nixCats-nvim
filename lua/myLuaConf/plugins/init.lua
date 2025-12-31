@@ -69,17 +69,17 @@ if nixCats 'general.extra' then
   vim.keymap.set('n', '<leader>-', '<cmd>Oil .<CR>', { noremap = true, desc = 'Open nvim root directory' })
 end
 
-if nixCats 'general.telescope' then
-  require('lze').load {
-    { import = 'myLuaConf.plugins.telescope' },
-  }
-end
-
-if nixCats 'general.mini-pick' then
-  require('lze').load {
-    { import = 'myLuaConf.plugins.mini-pick' },
-  }
-end
+-- if nixCats 'general.telescope' then
+--   require('lze').load {
+--     { import = 'myLuaConf.plugins.telescope' },
+--   }
+-- end
+--
+-- if nixCats 'general.mini-pick' then
+--   require('lze').load {
+--     { import = 'myLuaConf.plugins.mini-pick' },
+--   }
+-- end
 
 require('lze').load {
   { import = 'myLuaConf.plugins.snacks' },
