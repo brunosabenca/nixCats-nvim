@@ -1,11 +1,11 @@
 return {
-  {
-    'mini.starter',
-    for_cat = 'general.always',
-    after = function(plugin)
-      require('mini.starter').setup()
-    end,
-  },
+  -- {
+  --   'mini.starter',
+  --   for_cat = 'general.always',
+  --   after = function(plugin)
+  --     require('mini.starter').setup()
+  --   end,
+  -- },
   {
     'mini.surround',
     for_cat = 'general.always',
