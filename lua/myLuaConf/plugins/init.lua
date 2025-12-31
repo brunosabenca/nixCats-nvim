@@ -1,6 +1,6 @@
 local colorschemeName = nixCats 'colorscheme'
 if not require('nixCatsUtils').isNixCats then
-  colorschemeName = 'onedark'
+  colorschemeName = 'catppuccin'
 end
 -- Could I lazy load on colorscheme with lze?
 -- sure. But I was going to call vim.cmd.colorscheme() during startup anyway
@@ -18,6 +18,12 @@ if ok then
   vim.keymap.set('n', '<Esc>', function()
     notify.dismiss { silent = true }
   end, { desc = 'dismiss notify popup and clear hlsearch' })
+end
+
+if nixCats 'general.always' then
+-- https://github.com/BirdeeHub/lze/discussions/47
+---@diagnostic disable-next-line: invisible
+require('snacks').bigfile.setup()
 end
 
 -- NOTE: you can check if you included the category with the thing wherever you want.
@@ -64,7 +70,10 @@ if nixCats 'general.extra' then
 end
 
 require('lze').load {
-  { import = 'myLuaConf.plugins.telescope' },
+  --{ import = 'myLuaConf.plugins.telescope' },
+  -- { import = 'myLuaConf.plugins.mini-pick' },
+  { import = 'myLuaConf.plugins.snacks' },
+
   { import = 'myLuaConf.plugins.treesitter' },
   { import = 'myLuaConf.plugins.completion' },
   { import = 'myLuaConf.plugins.mini' },

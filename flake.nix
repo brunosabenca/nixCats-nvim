@@ -146,6 +146,7 @@
                 vim-repeat
                 plenary-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
+                snacks-nvim
               ];
               extra = [
                 oil-nvim
@@ -233,6 +234,9 @@
                 mini-starter
                 mini-surround
                 mini-comment
+                mini-pick
+                mini-icons
+                mini-extra
               ];
               extra = with pkgs.vimPlugins; [
                 fidget-nvim
@@ -392,7 +396,7 @@
               # you could also pass something else:
               # see :help nixCats
               themer = true;
-              colorscheme = "onedark";
+              colorscheme = "catppuccin";
             };
             extra = {
               # to keep the categories table from being filled with non category things that you want to pass
