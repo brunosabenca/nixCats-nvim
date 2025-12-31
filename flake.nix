@@ -218,11 +218,11 @@
                 #   ]
                 # ))
               ];
-              telescope = with pkgs.vimPlugins; [
-                telescope-fzf-native-nvim
-                telescope-ui-select-nvim
-                telescope-nvim
-              ];
+              # telescope = with pkgs.vimPlugins; [
+              #   telescope-fzf-native-nvim
+              #   telescope-ui-select-nvim
+              #   telescope-nvim
+              # ];
               always = with pkgs.vimPlugins; [
                 nvim-lspconfig
                 lualine-nvim
@@ -234,9 +234,11 @@
                 mini-starter
                 mini-surround
                 mini-comment
-                mini-pick
                 mini-icons
                 mini-extra
+              ];
+              mini-pick = with pkgs.vimPlugins; [
+                mini-pick
               ];
               extra = with pkgs.vimPlugins; [
                 fidget-nvim

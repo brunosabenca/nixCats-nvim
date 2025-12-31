@@ -13,7 +13,6 @@ return function(_, bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
   -- NOTE: why are these functions that call the telescope builtin?
   -- because otherwise they would load telescope eagerly when this is defined.
@@ -33,14 +32,16 @@ return function(_, bufnr)
     end, '[W]orkspace [S]ymbols')
   end -- TODO: someone who knows the builtin versions of these to do instead help me out please.
 
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('gK', vim.lsp.buf.signature_help, 'Signature Help')
 
-  -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
+  nmap('gy', vim.lsp.buf.type_definition, 'Goto T[y]pe Definition')
+  nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
   nmap('<leader>wl', function()

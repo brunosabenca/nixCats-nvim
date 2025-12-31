@@ -112,8 +112,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Diagnostic keymaps
 vim.diagnostic.config { jump = { float = true } }
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
+vim.keymap.set('n', '<leader>cD', vim.diagnostic.setloclist, { desc = 'Toggle Diagnostics List' })
 
 -- kickstart.nvim starts you with this.
 -- But it constantly clobbers your system clipboard whenever you delete anything.
@@ -133,9 +133,27 @@ vim.keymap.set('x', '<leader>P', '"_dP', { noremap = true, silent = true, desc =
 
 -- Save current file using C-s in normal mode
 vim.keymap.set('n', '<C-s>', '<cmd>w<cr>', { silent = true, desc = 'Save file' })
+vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { silent = true, desc = "Save File" })
 
 -- Buffers
 vim.keymap.set('n', '<S-l>', '<cmd>bnext<cr>', { silent = true, desc = 'Next Buffer' })
 vim.keymap.set('n', '<S-h>', '<cmd>bprev<cr>', { silent = true, desc = 'Previous Buffer' })
 vim.keymap.set('n', '<leader>bb', '<cmd>e #<cr>', { silent = true, desc = 'Switch to Other Buffer' })
 vim.keymap.set('n', '<leader>bd', '<cmd>:bd<cr>', { silent = true, desc = 'Delete Buffer and Window' })
+
+-- Quit
+vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
+
+-- Windows
+vim.keymap.set('n', '<leader>-', '<C-W>s', { desc = 'Split Window Below', remap = true })
+vim.keymap.set('n', '<leader>|', '<C-W>v', { desc = 'Split Window Right', remap = true })
+vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window', remap = true })
+
+-- Tabs
+vim.keymap.set('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
+vim.keymap.set('n', '<leader><tab>o', '<cmd>tabonly<cr>', { desc = 'Close Other Tabs' })
+vim.keymap.set('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
+vim.keymap.set('n', '<leader><tab><tab>', '<cmd>tabnew<cr>', { desc = 'New Tab' })
+vim.keymap.set('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
+vim.keymap.set('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
+vim.keymap.set('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })

@@ -5,6 +5,21 @@
 
 -- again, you dont need this file if you only use nix to load the config,
 -- this is a fallback only, and is optional.
+
+
+-- @todo test this conditonal loading
+local conditionalPlugins = {}
+
+if nixCats 'general.mini-pick' then
+  table.insert(conditionalPlugins, { 'nvim-mini/mini.pick', version = false })
+end
+
+if nixCats 'general.telescope' then
+  table.insert(conditionalPlugins, { 'nvim-telescope/telescope-fzf-native.nvim', build = ':!which make && make', opt = true })
+  table.insert(conditionalPlugins, { 'nvim-telescope/telescope-ui-select.nvim', opt = true })
+  table.insert(conditionalPlugins, { 'nvim-telescope/telescope.nvim', opt = true })
+end
+
 require('nixCatsUtils.catPacker').setup {
   --[[ ------------------------------------------ ]]
   --[[ The way to think of this is, its very      ]]
@@ -21,6 +36,9 @@ require('nixCatsUtils.catPacker').setup {
   --[[ elsewhere in our configuration, so that    ]]
   --[[ we dont have to write it twice.            ]]
   --[[ ------------------------------------------ ]]
+
+  unpack(conditionalPlugins),
+
   { 'BirdeeHub/lze' },
   { 'BirdeeHub/lzextras' },
   { 'stevearc/oil.nvim' },
@@ -32,10 +50,6 @@ require('nixCatsUtils.catPacker').setup {
 
   { 'nvim-treesitter/nvim-treesitter-textobjects', opt = true },
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', opt = true },
-
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = ':!which make && make', opt = true },
-  { 'nvim-telescope/telescope-ui-select.nvim', opt = true },
-  { 'nvim-telescope/telescope.nvim', opt = true },
 
   -- lsp
   { 'williamboman/mason.nvim', opt = true },
@@ -84,7 +98,6 @@ require('nixCatsUtils.catPacker').setup {
 
   { 'nvim-mini/mini.starter', version = false },
   { 'nvim-mini/mini.surround', version = false },
-  { 'nvim-mini/mini.pick', version = false },
   { 'nvim-mini/mini.icons', version = false },
   { 'nvim-mini/mini.comment', version = false },
   { 'nvim-mini/mini.extra', version = false },

@@ -21,9 +21,9 @@ if ok then
 end
 
 if nixCats 'general.always' then
--- https://github.com/BirdeeHub/lze/discussions/47
----@diagnostic disable-next-line: invisible
-require('snacks').bigfile.setup()
+  -- https://github.com/BirdeeHub/lze/discussions/47
+  ---@diagnostic disable-next-line: invisible
+  require('snacks').bigfile.setup()
 end
 
 -- NOTE: you can check if you included the category with the thing wherever you want.
@@ -69,9 +69,19 @@ if nixCats 'general.extra' then
   vim.keymap.set('n', '<leader>-', '<cmd>Oil .<CR>', { noremap = true, desc = 'Open nvim root directory' })
 end
 
+if nixCats 'general.telescope' then
+  require('lze').load {
+    { import = 'myLuaConf.plugins.telescope' },
+  }
+end
+
+if nixCats 'general.mini-pick' then
+  require('lze').load {
+    { import = 'myLuaConf.plugins.mini-pick' },
+  }
+end
+
 require('lze').load {
-  --{ import = 'myLuaConf.plugins.telescope' },
-  -- { import = 'myLuaConf.plugins.mini-pick' },
   { import = 'myLuaConf.plugins.snacks' },
 
   { import = 'myLuaConf.plugins.treesitter' },
