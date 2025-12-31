@@ -82,10 +82,14 @@ require('nixCatsUtils.catPacker').setup {
     opt = true,
   },
 
-  -- mini
   { 'nvim-mini/mini.starter', version = false },
   { 'nvim-mini/mini.surround', version = false },
+  { 'nvim-mini/mini.pick', version = false },
+  { 'nvim-mini/mini.icons', version = false },
   { 'nvim-mini/mini.comment', version = false },
+  { 'nvim-mini/mini.extra', version = false },
+
+  { 'folke/snacks.nvim', version = false },
 
   -- all the rest of the setup will be done using the normal setup functions later,
   -- thus working regardless of what method loads the plugins.
