@@ -1,22 +1,22 @@
-require('lze').load {
+require("lze").load({
   {
-    'conform.nvim',
-    for_cat = 'format',
+    "conform.nvim",
+    for_cat = "format",
     -- cmd = { "" },
     -- event = "",
     -- ft = "",
     keys = {
-      { '<leader>cf', desc = 'Format' },
+      { "<leader>cf", desc = "Format" },
     },
     -- colorscheme = "",
     after = function(plugin)
-      local conform = require 'conform'
+      local conform = require("conform")
 
-      conform.setup {
+      conform.setup({
         formatters_by_ft = {
           -- NOTE: download some formatters in lspsAndRuntimeDeps
           -- and configure them here
-          lua = { 'stylua' },
+          lua = { "stylua" },
           -- go = { "gofmt", "golint" },
           -- templ = { "templ" },
           -- Conform will run multiple formatters sequentially
@@ -26,18 +26,18 @@ require('lze').load {
         },
         format_on_save = {
           -- Recommended options. See :help conform.format for details.
-          lsp_format = 'fallback',
+          lsp_format = "fallback",
           timeout_ms = 500,
         },
-      }
+      })
 
-      vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
-        conform.format {
+      vim.keymap.set({ "n", "v" }, "<leader>cf", function()
+        conform.format({
           lsp_fallback = true,
           async = false,
           timeout_ms = 1000,
-        }
-      end, { desc = 'Format' })
+        })
+      end, { desc = "Format" })
     end,
   },
-}
+})

@@ -1,10 +1,10 @@
 return {
   {
-    'snacks.nvim',
-    for_cat = 'general.always',
-    event = { 'DeferredUIEnter' },
+    "snacks.nvim",
+    for_cat = "general.always",
+    event = { "DeferredUIEnter" },
     after = function(plugin)
-      require('snacks').setup {
+      require("snacks").setup({
         picker = { enabled = true },
         lazygit = { enabled = true },
         dashboard = {
@@ -31,11 +31,11 @@ return {
             },
           },
           sections = {
-            { section = 'header' },
-            { section = 'keys', gap = 1, padding = 1 },
+            { section = "header" },
+            { section = "keys", gap = 1, padding = 1 },
           },
         },
-      }
+      })
     end,
     -- stylua: ignore
     keys = {
