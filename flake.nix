@@ -228,7 +228,7 @@
               treesitter = with pkgs.vimPlugins; [
                 nvim-treesitter-textobjects
 
-                nvim-treesitter-legacy.withAllGrammars
+                nvim-treesitter.withAllGrammars
                 # This is for if you only want some of the grammars
                 # (nvim-treesitter.withPlugins (
                 #   plugins: with plugins; [
