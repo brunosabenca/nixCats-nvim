@@ -163,7 +163,6 @@
                 lzextras
                 vim-repeat
                 plenary-nvim
-                (nvim-notify.overrideAttrs { doCheck = false; }) # TODO: remove overrideAttrs after check is fixed
                 snacks-nvim
               ];
               extra = [

@@ -297,7 +297,22 @@ require("lze").load({
     -- cmd = { "" },
     event = "DeferredUIEnter",
     -- ft = "",
-    -- keys = "",
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Keymaps (which-key)",
+      },
+      {
+        "<c-w><space>",
+        function()
+          require("which-key").show({ keys = "<c-w>", loop = true })
+        end,
+        desc = "Window Hydra Mode (which-key)",
+      },
+    },
     -- colorscheme = "",
     after = function(plugin)
       require("which-key").setup({
@@ -305,23 +320,40 @@ require("lze").load({
       })
       require("which-key").add({
         { "<leader><leader>", group = "buffer commands" },
-        { "<leader><leader>_", hidden = true },
-        { "<leader>c", group = "[c]ode" },
-        { "<leader>c_", hidden = true },
-        { "<leader>d", group = "[d]ocument" },
-        { "<leader>d_", hidden = true },
-        { "<leader>g", group = "[g]it" },
-        { "<leader>g_", hidden = true },
-        { "<leader>m", group = "[m]arkdown" },
-        { "<leader>m_", hidden = true },
-        { "<leader>r", group = "[r]ename" },
-        { "<leader>r_", hidden = true },
-        { "<leader>s", group = "[s]earch" },
-        { "<leader>s_", hidden = true },
-        { "<leader>t", group = "[t]oggles" },
-        { "<leader>t_", hidden = true },
-        { "<leader>w", group = "[w]orkspace" },
-        { "<leader>w_", hidden = true },
+        { "<leader><tab>", group = "tabs" },
+        { "<leader>c", group = "code" },
+        { "<leader>d", group = "debug" },
+        { "<leader>dp", group = "profiler" },
+        { "<leader>f", group = "file/find" },
+        { "<leader>g", group = "git" },
+        { "<leader>gh", group = "hunks" },
+        { "<leader>m", group = "markdown" },
+        { "<leader>q", group = "quit/session" },
+        { "<leader>s", group = "search" },
+        { "<leader>u", group = "ui" },
+        { "<leader>x", group = "diagnostics/quickfix" },
+        { "[", group = "prev" },
+        { "]", group = "next" },
+        { "g", group = "goto" },
+        { "gs", group = "surround" },
+        { "z", group = "fold" },
+        {
+          "<leader>b",
+          group = "buffer",
+          expand = function()
+            return require("which-key.extras").expand.buf()
+          end,
+        },
+        {
+          "<leader>w",
+          group = "windows",
+          proxy = "<c-w>",
+          expand = function()
+            return require("which-key.extras").expand.win()
+          end,
+        },
+        -- better descriptions
+        { "gx", desc = "Open with system app" },
       })
     end,
   },
@@ -334,11 +366,11 @@ require("lze").load({
     end,
   },
   {
-    'grug-far.nvim',
-    for_cat = 'general.always',
-    event = 'DeferredUIEnter',
+    "grug-far.nvim",
+    for_cat = "general.always",
+    event = "DeferredUIEnter",
     after = function(plugin)
-      require('grug-far').setup()
+      require("grug-far").setup()
     end,
     keys = {
       {
@@ -356,6 +388,6 @@ require("lze").load({
         mode = { "n", "x" },
         desc = "Search and Replace",
       },
-    }
+    },
   },
 })

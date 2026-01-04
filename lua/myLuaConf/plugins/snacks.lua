@@ -7,6 +7,8 @@ return {
       require("snacks").setup({
         picker = { enabled = true },
         lazygit = { enabled = true },
+        bufdelete = { enabled = true },
+        notifier = { enabled = true },
         dashboard = {
           preset = {
             pick = function(cmd, opts)
@@ -39,6 +41,9 @@ return {
     end,
     -- stylua: ignore
     keys = {
+      -- buffers
+      { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+      { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete Other Buffers" },
       -- Top Pickers & Explorer
       { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
       { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
