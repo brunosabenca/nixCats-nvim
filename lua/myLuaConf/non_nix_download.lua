@@ -103,6 +103,8 @@ require("nixCatsUtils.catPacker").setup({
   { "folke/snacks.nvim", version = false },
   { "windwp/nvim-autopairs", version = false },
 
+  { 'MagicDuck/grug-far.nvim', version = false },
+
   -- all the rest of the setup will be done using the normal setup functions later,
   -- thus working regardless of what method loads the plugins.
   -- only stuff pertaining to downloading should be added to paq.

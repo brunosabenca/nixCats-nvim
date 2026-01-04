@@ -236,6 +236,7 @@
                 mini-comment
                 mini-icons
                 mini-extra
+                grug-far-nvim
               ];
               mini-pick = with pkgs.vimPlugins; [
                 mini-pick
