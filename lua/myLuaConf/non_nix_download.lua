@@ -44,10 +44,9 @@ require("nixCatsUtils.catPacker").setup({
   { "nvim-tree/nvim-web-devicons" },
   { "nvim-lua/plenary.nvim" },
   { "tpope/vim-repeat" },
-  { "rcarriga/nvim-notify" },
 
-  { "nvim-treesitter/nvim-treesitter-textobjects", branch = "master", opt = true },
-  { "nvim-treesitter/nvim-treesitter", branch = "master", build = ":TSUpdate", opt = true },
+  { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main", opt = true },
+  { "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate", opt = true },
 
   -- lsp
   { "williamboman/mason.nvim", opt = true },
