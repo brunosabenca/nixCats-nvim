@@ -163,11 +163,13 @@
                 lzextras
                 vim-repeat
                 plenary-nvim
-                snacks-nvim
               ];
               extra = [
                 oil-nvim
                 nvim-web-devicons
+              ];
+              snacks = [
+                snacks-nvim
               ];
             };
             # You can retrieve information from the

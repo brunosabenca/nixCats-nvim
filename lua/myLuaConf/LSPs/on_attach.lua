@@ -2,54 +2,53 @@ return function(_, bufnr)
   -- we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
 
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
+  local map = function(keys, func, desc, modes, has)
+    local opts = { buffer = bufnr, desc = desc }
+
+    if has then
+      opts.has = has
     end
 
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set(modes or "n", keys, func, opts)
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" }, "codeAction")
+  map("<leader>cc", vim.lsp.codelens.run, { "n", "x" }, "Run Codelens", "codeLens")
+  map("<leader>cC", vim.lsp.codelens.refresh, "Refresh & Display Codelens", "codeLens")
+  map("<leader>cr", vim.lsp.buf.rename, "Rename", "rename")
 
-
-  -- NOTE: why are these functions that call the telescope builtin?
-  -- because otherwise they would load telescope eagerly when this is defined.
-  -- due to us using the on_require handler to make sure it is available.
-  if nixCats 'general.telescope' then
-    nmap('gr', function()
-      require('telescope.builtin').lsp_references()
-    end, '[G]oto [R]eferences')
-    nmap('gI', function()
-      require('telescope.builtin').lsp_implementations()
-    end, '[G]oto [I]mplementation')
-    nmap('<leader>ds', function()
-      require('telescope.builtin').lsp_document_symbols()
-    end, '[D]ocument [S]ymbols')
-    nmap('<leader>ws', function()
-      require('telescope.builtin').lsp_dynamic_workspace_symbols()
-    end, '[W]orkspace [S]ymbols')
-  end -- TODO: someone who knows the builtin versions of these to do instead help me out please.
-
+  if nixCats("general.telescope") then
+    map("gr", function()
+      require("telescope.builtin").lsp_references()
+    end, "[G]oto [R]eferences")
+    map("gI", function()
+      require("telescope.builtin").lsp_implementations()
+    end, "[G]oto [I]mplementation")
+    map("<leader>ds", function()
+      require("telescope.builtin").lsp_document_symbols()
+    end, "[D]ocument [S]ymbols")
+    map("<leader>ws", function()
+      require("telescope.builtin").lsp_dynamic_workspace_symbols()
+    end, "[W]orkspace [S]ymbols")
+  end
 
   -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-  nmap('gK', vim.lsp.buf.signature_help, 'Signature Help')
+  map("K", vim.lsp.buf.hover, "Hover Documentation")
+  map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+  map("gK", vim.lsp.buf.signature_help, "Signature Help")
 
-  nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
-  nmap('gy', vim.lsp.buf.type_definition, 'Goto T[y]pe Definition')
-  nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+  map("gd", vim.lsp.buf.definition, "Goto Definition")
+  map("gy", vim.lsp.buf.type_definition, "Goto T[y]pe Definition")
+  map("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  -- map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+  -- map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+  -- map("<leader>wl", function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, "[W]orkspace [L]ist Folders")
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
     vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  end, { desc = "Format current buffer with LSP" })
 end
