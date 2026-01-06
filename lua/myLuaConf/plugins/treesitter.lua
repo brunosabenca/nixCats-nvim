@@ -3,7 +3,6 @@ return {
     "nvim-treesitter",
     lazy = false,
     after = function(plugin)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
       ---@param buf integer
       ---@param language string
       local function treesitter_try_attach(buf, language)
@@ -49,7 +48,7 @@ return {
     end,
   },
   {
-    "treesitter-textobjects",
+    "nvim-treesitter-textobjects",
     lazy = false,
     before = function(plugin)
       -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/tree/main?tab=readme-ov-file#using-a-package-manager
