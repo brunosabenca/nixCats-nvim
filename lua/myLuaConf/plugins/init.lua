@@ -83,8 +83,7 @@ end
 
 require("lze").load({
   { import = "myLuaConf.plugins.snacks" },
-
-  --{ import = "myLuaConf.plugins.treesitter" },
+  { import = "myLuaConf.plugins.treesitter" },
   { import = "myLuaConf.plugins.completion" },
   { import = "myLuaConf.plugins.mini" },
   {
