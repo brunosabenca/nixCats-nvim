@@ -69,23 +69,6 @@
           (utils.standardPluginOverlay inputs)
           # add any other flake overlays here.
 
-          (final: prev: {
-            vimPlugins = prev.vimPlugins // {
-              nvim-treesitter-textobjects = prev.vimUtils.buildVimPlugin {
-                pname = "nvim-treesitter-textobjects";
-                version = "0-unstable-2025-12-27";
-                src = prev.fetchFromGitHub {
-                  owner = "nvim-treesitter";
-                  repo = "nvim-treesitter-textobjects";
-                  rev = "ecd03f5811eb5c66d2fa420b79121b866feecd82";
-                  hash = "sha256-mMxCAkrGqTstEgaf/vwQMEF7D8swH3oyUJtaxuXzpcs=";
-                };
-                meta.homepage = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects/";
-                meta.hydraPlatforms = [ ];
-              };
-            };
-          })
-
           # when other people mess up their overlays by wrapping them with system,
           # you may instead call this function on their overlay.
           # it will check if it has the system in the set, and if so return the desired overlay
@@ -124,6 +107,7 @@
               universal-ctags
               ripgrep
               fd
+              tree-sitter
             ];
             # these names are arbitrary.
             lint = with pkgs; [
@@ -228,7 +212,6 @@
               ];
               treesitter = with pkgs.vimPlugins; [
                 nvim-treesitter-textobjects
-
                 nvim-treesitter.withAllGrammars
                 # This is for if you only want some of the grammars
                 # (nvim-treesitter.withPlugins (
