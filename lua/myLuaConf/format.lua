@@ -23,6 +23,7 @@ require("lze").load({
           -- python = { "isort", "black" },
           -- Use a sub-list to run only the first available formatter
           -- javascript = { { "prettierd", "prettier" } },
+          tf = { "terraform_fmt" },
           terraform = { "terraform_fmt" },
           hcl = { "terragrunt_hclfmt" },
         },
