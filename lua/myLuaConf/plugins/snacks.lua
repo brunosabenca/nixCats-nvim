@@ -111,6 +111,10 @@ return {
       { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
       { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
       { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", has = { "workspace/didRenameFiles", "workspace/willRenameFiles"} },
+      -- Terminal
+      { "<leader>ft", function() Snacks.terminal() end, desc = "Terminal" },
+      { "<c-/>", function() Snacks.terminal() end, desc = "Terminal", mode = { "n", "t" } },
+      { "<c-_>", function() Snacks.terminal() end, desc = "which_key_ignore", mode = { "n", "t" } },
     },
   },
 }
