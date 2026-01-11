@@ -102,7 +102,9 @@ require("nixCatsUtils.catPacker").setup({
   { "folke/snacks.nvim", version = false },
   { "windwp/nvim-autopairs", version = false },
 
-  { 'MagicDuck/grug-far.nvim', version = false },
+  { "MagicDuck/grug-far.nvim", version = false },
+
+  { "xiyaowong/transparent.nvim", opt = true },
 
   -- all the rest of the setup will be done using the normal setup functions later,
   -- thus working regardless of what method loads the plugins.

@@ -151,6 +151,7 @@
               extra = [
                 oil-nvim
                 nvim-web-devicons
+                transparent-nvim
               ];
               snacks = [
                 snacks-nvim
