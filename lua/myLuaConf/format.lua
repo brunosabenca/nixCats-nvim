@@ -26,6 +26,7 @@ require("lze").load({
           tf = { "terraform_fmt" },
           terraform = { "terraform_fmt" },
           hcl = { "terragrunt_hclfmt" },
+          fish = { "fish_indent" },
         },
         format_on_save = {
           -- Recommended options. See :help conform.format for details.
