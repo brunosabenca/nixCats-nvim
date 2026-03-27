@@ -1,10 +1,20 @@
 local colorschemeName = nixCats("colorscheme")
+
+require("catppuccin").setup({
+    flavour = "auto", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "frappe",
+    },
+    default_integrations = true,
+    auto_integrations = true,
+})
+
 if not require("nixCatsUtils").isNixCats then
-  colorschemeName = "catppuccin"
+  colorschemeName = "catppuccin-nvim"
 end
--- Could I lazy load on colorscheme with lze?
--- sure. But I was going to call vim.cmd.colorscheme() during startup anyway
--- this is just an example, feel free to do a better job!
+
+-- setup must be called before loading
 vim.cmd.colorscheme(colorschemeName)
 
 local ok, notify = pcall(require, "notify")
