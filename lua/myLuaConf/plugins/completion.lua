@@ -71,7 +71,7 @@ return {
         },
         fuzzy = {
           implementation = "prefer_rust",
-          prebuilt_binaries = { force_version = "1.*" },
+          prebuilt_binaries = { force_version = "v1.*" },
           sorts = {
             "exact",
             -- defaults
