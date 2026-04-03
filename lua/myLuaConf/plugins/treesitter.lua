@@ -20,8 +20,6 @@ return {
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
 
-      -- withAllGrammars pre-installs all parsers; treesitter_try_attach
-      -- already guards against missing parsers via language.add()
       vim.api.nvim_create_autocmd("FileType", {
         callback = function(args)
           local buf, filetype = args.buf, args.match
@@ -29,7 +27,24 @@ return {
           if not language then
             return
           end
-          treesitter_try_attach(buf, language)
+
+          if require("nixCatsUtils").isNixCats then
+            -- withAllGrammars pre-installs all parsers; treesitter_try_attach
+            -- already guards against missing parsers via language.add()
+            treesitter_try_attach(buf, language)
+          else
+            -- non-nix: parsers must be installed on demand
+            local ts = require("nvim-treesitter")
+            if vim.tbl_contains(ts.get_installed("parsers"), language) then
+              treesitter_try_attach(buf, language)
+            elseif vim.tbl_contains(ts.get_available(), language) then
+              ts.install(language):await(function()
+                treesitter_try_attach(buf, language)
+              end)
+            else
+              treesitter_try_attach(buf, language)
+            end
+          end
         end,
       })
     end,
@@ -50,35 +65,6 @@ return {
       -- vim.g.no_go_maps = true
     end,
     after = function(plugin)
-      require("nvim-treesitter-textobjects").setup({
-        select = {
-          -- Automatically jump forward to textobj, similar to targets.vim
-          lookahead = true,
-          -- You can choose the select mode (default is charwise 'v')
-          --
-          -- Can also be a function which gets passed a table with the keys
-          -- * query_string: eg '@function.inner'
-          -- * method: eg 'v' or 'o'
-          -- and should return the mode ('v', 'V', or '<c-v>') or a table
-          -- mapping query_strings to modes.
-          selection_modes = {
-            ["@parameter.outer"] = "v", -- charwise
-            ["@function.outer"] = "V", -- linewise
-            -- ['@class.outer'] = '<c-v>', -- blockwise
-          },
-          -- If you set this to `true` (default is `false`) then any textobject is
-          -- extended to include preceding or succeeding whitespace. Succeeding
-          -- whitespace has priority in order to act similarly to eg the built-in
-          -- `ap`.
-          --
-          -- Can also be a function which gets passed a table with the keys
-          -- * query_string: eg '@function.inner'
-          -- * selection_mode: eg 'v'
-          -- and should return true of false
-          include_surrounding_whitespace = false,
-        },
-      })
-
       -- keymaps
       -- You can use the capture groups defined in `textobjects.scm`
       vim.keymap.set({ "x", "o" }, "am", function()
