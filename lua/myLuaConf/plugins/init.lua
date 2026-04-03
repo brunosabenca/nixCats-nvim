@@ -37,61 +37,51 @@ if nixCats("general.always") then
 end
 
 -- NOTE: you can check if you included the category with the thing wherever you want.
-if nixCats("general.extra") then
-  -- I didnt want to bother with lazy loading this.
-  -- I could put it in opt and put it in a spec anyway
-  -- and then not set any handlers and it would load at startup,
-  -- but why... I guess I could make it load
-  -- after the other lze definitions in the next call using priority value?
-  -- didnt seem necessary.
-  vim.g.loaded_netrwPlugin = 1
-  require("oil").setup({
-    default_file_explorer = true,
-    view_options = {
-      show_hidden = true,
-    },
-    columns = {
-      "icon",
-      "permissions",
-      "size",
-      -- "mtime",
-    },
-    keymaps = {
-      ["g?"] = "actions.show_help",
-      ["<CR>"] = "actions.select",
-      ["<C-s>"] = "actions.select_vsplit",
-      ["<C-h>"] = "actions.select_split",
-      ["<C-t>"] = "actions.select_tab",
-      ["<C-p>"] = "actions.preview",
-      ["<C-c>"] = "actions.close",
-      ["<C-l>"] = "actions.refresh",
-      ["-"] = "actions.parent",
-      ["_"] = "actions.open_cwd",
-      ["`"] = "actions.cd",
-      ["~"] = "actions.tcd",
-      ["gs"] = "actions.change_sort",
-      ["gx"] = "actions.open_external",
-      ["g."] = "actions.toggle_hidden",
-      ["g\\"] = "actions.toggle_trash",
-    },
-  })
-  vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Parent Directory" })
-  vim.keymap.set("n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, desc = "Open nvim root directory" })
-end
-
--- if nixCats 'general.telescope' then
---   require('lze').load {
---     { import = 'myLuaConf.plugins.telescope' },
---   }
--- end
---
--- if nixCats 'general.mini-pick' then
---   require('lze').load {
---     { import = 'myLuaConf.plugins.mini-pick' },
---   }
--- end
 
 require("lze").load({
+  {
+    "oil.nvim",
+    for_cat = "general.extra",
+    cmd = { "Oil" },
+    keys = {
+      { "-", "<cmd>Oil<CR>", noremap = true, desc = "Open Parent Directory" },
+      { "<leader>-", "<cmd>Oil .<CR>", noremap = true, desc = "Open nvim root directory" },
+    },
+    before = function(_)
+      vim.g.loaded_netrwPlugin = 1
+    end,
+    after = function(_)
+      require("oil").setup({
+        default_file_explorer = true,
+        view_options = {
+          show_hidden = true,
+        },
+        columns = {
+          "icon",
+          "permissions",
+          "size",
+        },
+        keymaps = {
+          ["g?"] = "actions.show_help",
+          ["<CR>"] = "actions.select",
+          ["<C-s>"] = "actions.select_vsplit",
+          ["<C-h>"] = "actions.select_split",
+          ["<C-t>"] = "actions.select_tab",
+          ["<C-p>"] = "actions.preview",
+          ["<C-c>"] = "actions.close",
+          ["<C-l>"] = "actions.refresh",
+          ["-"] = "actions.parent",
+          ["_"] = "actions.open_cwd",
+          ["`"] = "actions.cd",
+          ["~"] = "actions.tcd",
+          ["gs"] = "actions.change_sort",
+          ["gx"] = "actions.open_external",
+          ["g."] = "actions.toggle_hidden",
+          ["g\\"] = "actions.toggle_trash",
+        },
+      })
+    end,
+  },
   { import = "myLuaConf.plugins.snacks" },
   { import = "myLuaConf.plugins.treesitter" },
   { import = "myLuaConf.plugins.completion" },
@@ -152,34 +142,15 @@ require("lze").load({
   {
     "fidget.nvim",
     for_cat = "general.extra",
-    event = "DeferredUIEnter",
-    -- keys = "",
+    event = "LspAttach",
     after = function(plugin)
       require("fidget").setup({})
     end,
   },
-  -- {
-  --   "hlargs",
-  --   for_cat = 'general.extra',
-  --   event = "DeferredUIEnter",
-  --   -- keys = "",
-  --   dep_of = { "nvim-lspconfig" },
-  --   after = function(plugin)
-  --     require('hlargs').setup {
-  --       color = '#32a88f',
-  --     }
-  --     vim.cmd([[hi clear @lsp.type.parameter]])
-  --     vim.cmd([[hi link @lsp.type.parameter Hlargs]])
-  --   end,
-  -- },
   {
     "lualine.nvim",
     for_cat = "general.always",
-    -- cmd = { "" },
     event = "DeferredUIEnter",
-    -- ft = "",
-    -- keys = "",
-    -- colorscheme = "",
     after = function(plugin)
       require("lualine").setup({
         options = {
@@ -209,8 +180,6 @@ require("lze").load({
         },
         tabline = {
           lualine_a = { "buffers" },
-          -- if you use lualine-lsp-progress, I have mine here instead of fidget
-          -- lualine_b = { 'lsp_progress', },
           lualine_z = { "tabs" },
         },
       })
@@ -219,11 +188,7 @@ require("lze").load({
   {
     "gitsigns.nvim",
     for_cat = "general.always",
-    event = "DeferredUIEnter",
-    -- cmd = { "" },
-    -- ft = "",
-    -- keys = "",
-    -- colorscheme = "",
+    event = { "BufReadPre", "BufNewFile" },
     after = function(plugin)
       require("gitsigns").setup({
         -- See `:help gitsigns.txt`
@@ -303,9 +268,7 @@ require("lze").load({
   {
     "which-key.nvim",
     for_cat = "general.extra",
-    -- cmd = { "" },
     event = "DeferredUIEnter",
-    -- ft = "",
     keys = {
       {
         "<leader>?",
@@ -322,7 +285,6 @@ require("lze").load({
         desc = "Window Hydra Mode (which-key)",
       },
     },
-    -- colorscheme = "",
     after = function(plugin)
       require("which-key").setup({
         preset = "helix",
@@ -343,6 +305,8 @@ require("lze").load({
         { "<leader>x", group = "diagnostics/quickfix" },
         { "[", group = "prev" },
         { "]", group = "next" },
+        { "[t", desc = "Prev Todo Comment" },
+        { "]t", desc = "Next Todo Comment" },
         { "g", group = "goto" },
         { "gs", group = "surround" },
         { "z", group = "fold" },
@@ -369,15 +333,56 @@ require("lze").load({
   {
     "nvim-autopairs",
     for_cat = "general.always",
-    event = "DeferredUIEnter",
+    event = "InsertEnter",
     after = function(plugin)
       require("nvim-autopairs").setup()
     end,
   },
   {
+    "flash.nvim",
+    for_cat = "general.always",
+    after = function(plugin)
+      require("flash").setup()
+    end,
+    keys = {
+      { "s", function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash" },
+      { "S", function() require("flash").treesitter() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
+      { "r", function() require("flash").remote() end, mode = "o", desc = "Remote Flash" },
+      { "R", function() require("flash").treesitter_search() end, mode = { "o", "x" }, desc = "Treesitter Search" },
+      { "<c-s>", function() require("flash").toggle() end, mode = "c", desc = "Toggle Flash Search" },
+    },
+  },
+  {
+    "todo-comments.nvim",
+    for_cat = "general.always",
+    event = { "BufReadPost", "BufNewFile" },
+    after = function(plugin)
+      require("todo-comments").setup()
+    end,
+    keys = {
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Prev Todo Comment" },
+      { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+      { "<leader>sT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+    },
+  },
+  {
+    "persistence.nvim",
+    for_cat = "general.always",
+    event = "BufReadPre",
+    after = function(plugin)
+      require("persistence").setup()
+    end,
+    keys = {
+      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
+      { "<leader>qS", function() require("persistence").select() end, desc = "Select Session" },
+      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+    },
+  },
+  {
     "grug-far.nvim",
     for_cat = "general.always",
-    event = "DeferredUIEnter",
     after = function(plugin)
       require("grug-far").setup()
     end,
