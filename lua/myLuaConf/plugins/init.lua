@@ -6,6 +6,7 @@ require("catppuccin").setup({
         light = "latte",
         dark = "frappe",
     },
+    transparent_background = true,
     default_integrations = true,
     auto_integrations = true,
 })
@@ -155,7 +156,7 @@ require("lze").load({
       require("lualine").setup({
         options = {
           icons_enabled = false,
-          theme = colorschemeName,
+          theme = "catppuccin-frappe",
           component_separators = "|",
           section_separators = "",
         },
