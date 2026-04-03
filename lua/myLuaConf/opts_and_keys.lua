@@ -29,14 +29,8 @@ vim.wo.number = true
 vim.o.mouse = "a"
 
 -- Indent
--- vim.o.smarttab = true
 vim.opt.cpoptions:append("I")
 vim.o.expandtab = true
--- vim.o.smartindent = true
--- vim.o.autoindent = true
--- vim.o.tabstop = 4
--- vim.o.softtabstop = 4
--- vim.o.shiftwidth = 4
 
 -- stops line wrapping from being confusing
 vim.o.breakindent = true
@@ -160,12 +154,6 @@ vim.keymap.set(
 vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", { silent = true, desc = "Save file" })
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { silent = true, desc = "Save File" })
 
--- Buffers
-vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { silent = true, desc = "Next Buffer" })
-vim.keymap.set("n", "<S-h>", "<cmd>bprev<cr>", { silent = true, desc = "Previous Buffer" })
-vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { silent = true, desc = "Switch to Other Buffer" })
-vim.keymap.set("n", "<leader>bd", "<cmd>:bd<cr>", { silent = true, desc = "Delete Buffer and Window" })
-
 -- Quit
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
@@ -231,13 +219,3 @@ vim.api.nvim_create_autocmd("FileType", {
 -- new file
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
--- highlight after yank
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})

@@ -2,9 +2,6 @@ require("lze").load({
   {
     "conform.nvim",
     for_cat = "format",
-    -- cmd = { "" },
-    -- event = "",
-    -- ft = "",
     keys = {
       { "<leader>cf", desc = "Format" },
     },
@@ -14,15 +11,7 @@ require("lze").load({
 
       conform.setup({
         formatters_by_ft = {
-          -- NOTE: download some formatters in lspsAndRuntimeDeps
-          -- and configure them here
           lua = { "stylua" },
-          -- go = { "gofmt", "golint" },
-          -- templ = { "templ" },
-          -- Conform will run multiple formatters sequentially
-          -- python = { "isort", "black" },
-          -- Use a sub-list to run only the first available formatter
-          -- javascript = { { "prettierd", "prettier" } },
           tf = { "terraform_fmt" },
           terraform = { "terraform_fmt" },
           hcl = { "terragrunt_hclfmt" },
