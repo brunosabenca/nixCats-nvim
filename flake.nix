@@ -15,15 +15,6 @@
     # for specific tags, branches and commits, see:
     # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#examples
 
-    # No longer fetched to avoid forcing people to import it, but this remains here as a tutorial.
-    # How to import it into your config is shown farther down in the startupPlugins set.
-    # You put it here like this, and then below you would use it with `pkgs.neovimPlugins.hlargs`
-
-    # "plugins-hlargs" = {
-    #   url = "github:m-demare/hlargs.nvim";
-    #   flake = false;
-    # };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
@@ -222,11 +213,6 @@
                 #   ]
                 # ))
               ];
-              # telescope = with pkgs.vimPlugins; [
-              #   telescope-fzf-native-nvim
-              #   telescope-ui-select-nvim
-              #   telescope-nvim
-              # ];
               always = with pkgs.vimPlugins; [
                 nvim-lspconfig
                 lualine-nvim
@@ -235,12 +221,15 @@
                 vim-fugitive
                 vim-rhubarb
                 nvim-autopairs
-                mini-starter
                 mini-surround
                 mini-comment
+                mini-ai
                 mini-icons
                 mini-extra
                 grug-far-nvim
+                flash-nvim
+                todo-comments-nvim
+                persistence-nvim
               ];
               mini-pick = with pkgs.vimPlugins; [
                 mini-pick
@@ -259,57 +248,6 @@
             };
           };
 
-          # shared libraries to be added to LD_LIBRARY_PATH
-          # variable available to nvim runtime
-          sharedLibraries = {
-            general = with pkgs; [
-              # <- this would be included if any of the subcategories of general are
-              # libgit2
-            ];
-          };
-
-          # environmentVariables:
-          # this section is for environmentVariables that should be available
-          # at RUN TIME for plugins. Will be available to path within neovim terminal
-          environmentVariables = {
-            test = {
-              default = {
-                CATTESTVARDEFAULT = "It worked!";
-              };
-              subtest1 = {
-                CATTESTVAR = "It worked!";
-              };
-              subtest2 = {
-                CATTESTVAR3 = "It didn't work!";
-              };
-            };
-          };
-
-          # If you know what these are, you can provide custom ones by category here.
-          # If you dont, check this link out:
-          # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
-          extraWrapperArgs = {
-            test = [
-              ''--set CATTESTVAR2 "It worked again!"''
-            ];
-          };
-
-          # lists of the functions you would have passed to
-          # python.withPackages or lua.withPackages
-          # do not forget to set `hosts.python3.enable` in package settings
-
-          # get the path to this python environment
-          # in your lua config via
-          # vim.g.python3_host_prog
-          # or run from nvim terminal via :!<packagename>-python3
-          python3.libraries = {
-            test = _: [ ];
-          };
-          # populates $LUA_PATH and $LUA_CPATH
-          extraLuaPackages = {
-            general = [ (_: [ ]) ];
-          };
-
           # see :help nixCats.flake.outputs.categoryDefinitions.default_values
           # this will enable test.default and debug.default
           # if any subcategory of test or debug is enabled
@@ -317,12 +255,6 @@
           # The categories argument of this function is the FINAL value.
           # You may use it in any of the other sets.
           extraCats = {
-            test = [
-              [
-                "test"
-                "default"
-              ]
-            ];
             debug = [
               [
                 "debug"
@@ -374,8 +306,7 @@
                 "nvim"
               ];
 
-              # explained below in the `regularCats` package's definition
-              # OR see :help nixCats.flake.outputs.settings for all of the settings available
+              # see :help nixCats.flake.outputs.settings for all of the settings available
               wrapRc = true;
               configDirName = "nixCats-nvim";
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
@@ -389,9 +320,6 @@
               lint = true;
               format = true;
               neonixdev = true;
-              test = {
-                subtest1 = true;
-              };
 
               # enabling this category will enable the go category,
               # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
@@ -421,64 +349,27 @@
             settings = {
               suffix-path = true;
               suffix-LD = true;
-              # IMPURE PACKAGE: normal config reload
-              # include same categories as main config,
-              # will load from vim.fn.stdpath('config')
+              # IMPURE: loads config from vim.fn.stdpath('config') for live editing without rebuild
               wrapRc = false;
-              # or tell it some other place to load
-              # unwrappedCfgPath = "/some/path/to/your/config";
-
-              # configDirName: will now look for nixCats-nvim within .config and .local and others
-              # this can be changed so that you can choose which ones share data folders for auths
-              # :h $NVIM_APPNAME
               configDirName = "nixCats-nvim";
-
               aliases = [ "testCat" ];
-
-              # If you wanted nightly, uncomment this, and the flake input.
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
-              # Probably add the cache stuff they recommend too.
+              hosts.python3.enable = true;
+              hosts.node.enable = true;
             };
             categories = {
               markdown = true;
               general = true;
-              neonixdev = true;
               lint = true;
               format = true;
-              test = true;
-              # go = true; # <- disabled but you could enable it with override or module on install
+              neonixdev = true;
               lspDebugMode = false;
               themer = true;
               colorscheme = "catppuccin";
             };
             extra = {
-              # nixCats.extra("path.to.val") will perform vim.tbl_get(nixCats.extra, "path" "to" "val")
-              # this is different from the main nixCats("path.to.cat") in that
-              # the main nixCats("path.to.cat") will report true if `path.to = true`
-              # even though path.to.cat would be an indexing error in that case.
-              # this is to mimic the concept of "subcategories" but may get in the way of just fetching values.
               nixdExtras = {
                 nixpkgs = ''import ${pkgs.path} {}'';
-                # or inherit nixpkgs;
-              };
-              # yes even tortured inputs work.
-              theBestCat = "says meow!!";
-              theWorstCat = {
-                thing'1 = [
-                  "MEOW"
-                  '']]' ]=][=[HISSS]]"[[''
-                ];
-                thing2 = [
-                  {
-                    thing3 = [
-                      "give"
-                      "treat"
-                    ];
-                  }
-                  "I LOVE KEYBOARDS"
-                  (utils.mkLuaInline ''[[I am a]] .. [[ lua ]] .. type("value")'')
-                ];
-                thing4 = "couch is for scratching";
               };
             };
           };
