@@ -62,6 +62,7 @@ require("nixCatsUtils.catPacker").setup({
   { "nvim-mini/mini.icons", version = false },
   { "nvim-mini/mini.comment", version = false },
   { "nvim-mini/mini.extra", version = false },
+  { "nvim-mini/mini.ai", version = false },
 
   { "folke/snacks.nvim", version = false },
   { "windwp/nvim-autopairs", version = false },
