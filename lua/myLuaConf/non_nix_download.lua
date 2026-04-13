@@ -70,4 +70,6 @@ require("nixCatsUtils.catPacker").setup({
   { "MagicDuck/grug-far.nvim", version = false },
 
   { "xiyaowong/transparent.nvim", opt = true },
+  { "folke/persistence.nvim", opt = true },
+  { "folke/todo-comments.nvim", opt = true },
 })
