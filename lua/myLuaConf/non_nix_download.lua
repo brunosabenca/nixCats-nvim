@@ -72,4 +72,5 @@ require("nixCatsUtils.catPacker").setup({
   { "xiyaowong/transparent.nvim", opt = true },
   { "folke/persistence.nvim", opt = true },
   { "folke/todo-comments.nvim", opt = true },
+  { "folke/flash.nvim", opt = true },
 })
