@@ -143,6 +143,7 @@
                 oil-nvim
                 nvim-web-devicons
                 transparent-nvim
+                kitty-scrollback-nvim
               ];
               snacks = [
                 snacks-nvim
@@ -338,7 +339,7 @@
               # there is also an extra table you can use to pass extra stuff.
               # but you can pass all the same stuff in any of these sets and access it in lua
               nixdExtras = {
-                nixpkgs = ''import ${pkgs.path} {}'';
+                nixpkgs = "import ${pkgs.path} {}";
                 # or inherit nixpkgs;
               };
             };
@@ -369,7 +370,7 @@
             };
             extra = {
               nixdExtras = {
-                nixpkgs = ''import ${pkgs.path} {}'';
+                nixpkgs = "import ${pkgs.path} {}";
               };
             };
           };
@@ -431,7 +432,7 @@
             name = defaultPackageName;
             packages = [ defaultPackage ];
             inputsFrom = [ ];
-            shellHook = '''';
+            shellHook = "";
           };
         };
       }
