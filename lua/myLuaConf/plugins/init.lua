@@ -1,14 +1,14 @@
 local colorschemeName = nixCats("colorscheme")
 
 require("catppuccin").setup({
-    flavour = "auto", -- latte, frappe, macchiato, mocha
-    background = { -- :h background
-        light = "latte",
-        dark = "frappe",
-    },
-    transparent_background = true,
-    default_integrations = true,
-    auto_integrations = true,
+  flavour = "auto", -- latte, frappe, macchiato, mocha
+  background = { -- :h background
+    light = "latte",
+    dark = "frappe",
+  },
+  transparent_background = true,
+  default_integrations = true,
+  auto_integrations = true,
 })
 
 if not require("nixCatsUtils").isNixCats then
@@ -346,11 +346,46 @@ require("lze").load({
       require("flash").setup()
     end,
     keys = {
-      { "s", function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash" },
-      { "S", function() require("flash").treesitter() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
-      { "r", function() require("flash").remote() end, mode = "o", desc = "Remote Flash" },
-      { "R", function() require("flash").treesitter_search() end, mode = { "o", "x" }, desc = "Treesitter Search" },
-      { "<c-s>", function() require("flash").toggle() end, mode = "c", desc = "Toggle Flash Search" },
+      {
+        "s",
+        function()
+          require("flash").jump()
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Flash",
+      },
+      {
+        "S",
+        function()
+          require("flash").treesitter()
+        end,
+        mode = { "n", "x", "o" },
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        function()
+          require("flash").remote()
+        end,
+        mode = "o",
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        function()
+          require("flash").treesitter_search()
+        end,
+        mode = { "o", "x" },
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        function()
+          require("flash").toggle()
+        end,
+        mode = "c",
+        desc = "Toggle Flash Search",
+      },
     },
   },
   {
@@ -361,10 +396,34 @@ require("lze").load({
       require("todo-comments").setup()
     end,
     keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "Prev Todo Comment" },
-      { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
-      { "<leader>sT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next Todo Comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Prev Todo Comment",
+      },
+      {
+        "<leader>st",
+        function()
+          Snacks.picker.todo_comments()
+        end,
+        desc = "Todo",
+      },
+      {
+        "<leader>sT",
+        function()
+          Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+        end,
+        desc = "Todo/Fix/Fixme",
+      },
     },
   },
   {
@@ -375,10 +434,34 @@ require("lze").load({
       require("persistence").setup()
     end,
     keys = {
-      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
-      { "<leader>qS", function() require("persistence").select() end, desc = "Select Session" },
-      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+      {
+        "<leader>qs",
+        function()
+          require("persistence").load()
+        end,
+        desc = "Restore Session",
+      },
+      {
+        "<leader>qS",
+        function()
+          require("persistence").select()
+        end,
+        desc = "Select Session",
+      },
+      {
+        "<leader>ql",
+        function()
+          require("persistence").load({ last = true })
+        end,
+        desc = "Restore Last Session",
+      },
+      {
+        "<leader>qd",
+        function()
+          require("persistence").stop()
+        end,
+        desc = "Don't Save Current Session",
+      },
     },
   },
   {
@@ -404,5 +487,18 @@ require("lze").load({
         desc = "Search and Replace",
       },
     },
+  },
+  {
+    "kitty-scrollback.nvim",
+    for_cat = "general.always",
+    cmd = {
+      "KittyScrollbackGenerateKittens",
+      "KittyScrollbackCheckHealth",
+      "KittyScrollbackGenerateCommandLineEditing",
+    },
+    event = "User KittyScrollbackLaunch",
+    after = function(plugin)
+      require("kitty-scrollback").setup()
+    end,
   },
 })

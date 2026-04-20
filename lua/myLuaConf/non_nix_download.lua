@@ -73,4 +73,5 @@ require("nixCatsUtils.catPacker").setup({
   { "folke/persistence.nvim", opt = true },
   { "folke/todo-comments.nvim", opt = true },
   { "folke/flash.nvim", opt = true },
+  { "mikesmithgh/kitty-scrollback.nvim", opt = true },
 })

@@ -10,6 +10,7 @@ return {
         bufdelete = { enabled = true },
         notifier = { enabled = true },
         dashboard = {
+          enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
           preset = {
             pick = function(cmd, opts)
               return Snacks.picker.pick(cmd, opts)()
