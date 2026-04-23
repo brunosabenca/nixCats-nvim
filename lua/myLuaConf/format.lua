@@ -12,6 +12,7 @@ require("lze").load({
       conform.setup({
         formatters_by_ft = {
           lua = { "stylua" },
+          kdl = { "kdlfmt" },
           tf = { "terraform_fmt" },
           terraform = { "terraform_fmt" },
           hcl = { "terragrunt_hclfmt" },
