@@ -26,7 +26,7 @@ require("nixCatsUtils.catPacker").setup({
   -- completion
   { "L3MON4D3/LuaSnip", opt = true, as = "luasnip" },
   { "hrsh7th/cmp-cmdline", opt = true },
-  { "Saghen/blink.cmp", opt = true, version = "1.*" },
+  { "Saghen/blink.cmp", opt = true, branch = "v1" },
   { "Saghen/blink.compat", opt = true },
   { "xzbdmw/colorful-menu.nvim", opt = true },
 
