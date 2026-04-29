@@ -12,7 +12,7 @@ require("lze").load({
       conform.setup({
         formatters_by_ft = {
           lua = { "stylua" },
-          kdl = { "kdlfmt" },
+          -- kdl = { "kdlfmt" }, -- disabled: mangled comment indentation, see https://github.com/kdl-org/kdl-rs
           tf = { "terraform_fmt" },
           terraform = { "terraform_fmt" },
           hcl = { "terragrunt_hclfmt" },
