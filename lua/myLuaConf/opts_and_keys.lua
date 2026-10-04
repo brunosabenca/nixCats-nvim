@@ -129,7 +129,13 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-vim.diagnostic.config({ jump = { float = true } })
+vim.diagnostic.config({
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+    end,
+  },
+})
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 vim.keymap.set("n", "<leader>cD", vim.diagnostic.setloclist, { desc = "Toggle Diagnostics List" })
 
@@ -232,4 +238,3 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- new file
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
-

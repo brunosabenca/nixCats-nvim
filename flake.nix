@@ -99,6 +99,7 @@
               ripgrep
               fd
               tree-sitter
+              trash-cli # snacks explorer deletes to trash instead of permanently
             ];
             # these names are arbitrary.
             lint = with pkgs; [
