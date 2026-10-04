@@ -285,7 +285,7 @@
       packageDefinitions = {
         # the name here is the name of the package
         # and also the default command name for it.
-        nixCats =
+        Neovim =
           {
             pkgs,
             name,
@@ -298,7 +298,7 @@
               suffix-path = true;
               suffix-LD = true;
               # The name of the package, and the default launch name,
-              # and the name of the .desktop file, is `nixCats`,
+              # and the name of the .desktop file, is `Neovim`,
               # or, whatever you named the package definition in the packageDefinitions set.
               # WARNING: MAKE SURE THESE DONT CONFLICT WITH OTHER INSTALLED PACKAGES ON YOUR PATH
               # That would result in a failed build, as nixos and home manager modules validate for collisions on your path
@@ -377,7 +377,7 @@
           };
       };
 
-      defaultPackageName = "nixCats";
+      defaultPackageName = "Neovim";
       # I did not here, but you might want to create a package named nvim.
       # defaultPackageName is also passed to utils.mkNixosModules and utils.mkHomeModules
       # and it controls the name of the top level option set.

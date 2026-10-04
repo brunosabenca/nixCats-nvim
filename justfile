@@ -10,7 +10,7 @@ up input:
 
 # Build the neovim package
 build:
-    nix build .#nixCats
+    nix build .#Neovim
 
 # Check flake outputs without building
 check:
