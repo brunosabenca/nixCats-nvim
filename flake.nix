@@ -95,6 +95,7 @@
           lspsAndRuntimeDeps = {
             # some categories of stuff.
             general = with pkgs; [
+              git # vim.pack (used by catppuccin integration detection) needs git
               universal-ctags
               ripgrep
               fd
